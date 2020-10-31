@@ -142,15 +142,7 @@
         datasets: [
           {
             data: [],
-            backgroundColor: [
-              '#ffcd56',
-              '#ff6384',
-              '#36a2eb',
-              '#fd6b19',
-              '#2Bf7f5',
-              '#9b1365',
-              '#23f225',
-            ],
+            backgroundColor: [],
           },
         ],
         labels: [
@@ -167,11 +159,12 @@
       }
 
       function getBudget() {
-        axios.get('http://localhost:3000/budget')
+        axios.get('http://localhost:3200/budget')
         .then((res) => {
-          for (var i=0; i < res.data.myBudget.length; i++) {
-            dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-            dataSource.labels[i] = res.data.myBudget[i].title;
+          for (var i=0; i < res.data.length; i++) {
+            dataSource.datasets[0].data[i] = res.data[i].budget;
+            dataSource.labels[i] = res.data[i].title;
+            dataSource.datasets[0].backgroundColor[i] = res.data[i].color;
           }
           createChart();
           var color = d3.scale.ordinal()
